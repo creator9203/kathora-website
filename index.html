@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXORA | Wear Your Vibe</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Cormorant Garamond, Great Vibes / Caveat (Handwritten Script), & Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Cormorant Garamond', 'serif'],
+                        script: ['Caveat', 'cursive'],
+                    },
+                    colors: {
+                        nexora: {
+                            dark: '#1F1A1B',
+                            blush: '#EBD3D3',
+                            blushLight: '#F6EBEB',
+                            peach: '#EED9CC',
+                            rose: '#D9A7A7',
+                            pill: '#E4C7C7',
+                            cream: '#FDFBFB'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom subtle botanical background patterns */
+        .hero-gradient {
+            background: linear-gradient(105deg, #EAD1D1 0%, #F5E6E4 48%, #E6CCCC 100%);
+        }
+        .card-blush-gradient {
+            background: linear-gradient(120deg, #E7C9C9 0%, #F4E3E3 100%);
+        }
+        .card-peach-gradient {
+            background: linear-gradient(120deg, #EAD2C3 0%, #F6E9DF 100%);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-white text-nexora-dark font-sans antialiased selection:bg-nexora-rose selection:text-white overflow-x-hidden">
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- Top Dark Announcement Bar (Matching Reference) -->
+    <div class="bg-[#1D191A] text-white text-xs py-2 px-4 border-b border-white/10">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+            <div class="hidden sm:block w-24"></div>
+            <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-center font-medium tracking-wide">
+                <span class="inline-flex items-center gap-1.5">
+                    <i data-lucide="truck" class="w-4 h-4 text-nexora-blush"></i>
+                    Free Shipping on Orders Above ₹999
+                </span>
+                <span class="text-white/40">|</span>
+                <span>Easy Returns</span>
+                <span class="text-white/40">|</span>
+                <span>Secure Payments</span>
+            </div>
+            <!-- Social Icons Right -->
+            <div class="hidden sm:flex items-center gap-3 text-white/90">
+                <a href="#footer" aria-label="Instagram" class="hover:text-nexora-blush transition"><i data-lucide="instagram" class="w-3.5 h-3.5"></i></a>
+                <a href="#footer" aria-label="WhatsApp" class="hover:text-nexora-blush transition"><i data-lucide="message-circle" class="w-3.5 h-3.5"></i></a>
+                <a href="#footer" aria-label="YouTube" class="hover:text-nexora-blush transition"><i data-lucide="youtube" class="w-3.5 h-3.5"></i></a>
+                <a href="#footer" aria-label="Share" class="hover:text-nexora-blush transition"><i data-lucide="globe" class="w-3.5 h-3.5"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation Header -->
+    <header class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-nexora-blush/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Mobile Menu Toggle -->
+                <div class="flex items-center lg:hidden">
+                    <button id="mobile-menu-btn" class="p-2 rounded-lg text-nexora-dark hover:bg-nexora-blushLight transition" aria-label="Open Menu">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+
+                <!-- Brand Logo with Butterfly SVG Emblem -->
+                <a href="#" onclick="resetFilters()" class="flex items-center gap-2.5 group">
+                    <!-- Custom Butterfly SVG matching reference -->
+                    <svg class="w-9 h-9 text-nexora-dark group-hover:scale-105 transition-transform" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <!-- Left Upper Wing -->
+                        <path d="M32 32C24 16 8 10 6 20C4 28 18 33 32 32Z" fill="#F6EBEB"/>
+                        <!-- Right Upper Wing -->
+                        <path d="M32 32C40 16 56 10 58 20C60 28 46 33 32 32Z" fill="#F6EBEB"/>
+                        <!-- Left Lower Wing -->
+                        <path d="M32 33C22 34 12 42 16 49C20 55 29 45 32 33Z" fill="#EBD3D3"/>
+                        <!-- Right Lower Wing -->
+                        <path d="M32 33C42 34 52 42 48 49C44 55 35 45 32 33Z" fill="#EBD3D3"/>
+                        <!-- Body & Antennae -->
+                        <path d="M32 22V46"/>
+                        <path d="M32 22C29 16 25 14 23 14"/>
+                        <path d="M32 22C35 16 39 14 41 14"/>
+                    </svg>
+                    <div class="flex flex-col leading-none">
+                        <span class="font-serif text-2xl sm:text-[28px] font-semibold tracking-wider text-nexora-dark">NEXORA</span>
+                        <span class="font-serif text-[11px] tracking-[0.18em] text-neutral-600 text-center mt-0.5">Wear Your Vibe</span>
+                    </div>
+                </a>
+
+                <!-- Center Navigation Links -->
+                <nav class="hidden lg:flex items-center space-x-6 text-sm font-medium text-nexora-dark">
+                    <button onclick="resetFilters()" class="nav-item px-4 py-1.5 rounded-lg bg-nexora-pill/80 text-nexora-dark font-semibold transition" data-nav="Home">Home</button>
+                    <button onclick="filterProducts('All')" class="nav-item flex items-center gap-1 hover:text-rose-700 transition py-1.5 px-2 rounded-lg" data-nav="All">
+                        Shop <i data-lucide="chevron-down" class="w-3.5 h-3.5 opacity-70"></i>
+                    </button>
+                    <button onclick="filterProducts('Women Wear')" class="nav-item flex items-center gap-1 hover:text-rose-700 transition py-1.5 px-2 rounded-lg" data-nav="Women Wear">
+                        Women <i data-lucide="chevron-down" class="w-3.5 h-3.5 opacity-70"></i>
+                    </button>
+                    <button onclick="filterProducts('Men Wear')" class="nav-item flex items-center gap-1 hover:text-rose-700 transition py-1.5 px-2 rounded-lg" data-nav="Men Wear">
+                        Men <i data-lucide="chevron-down" class="w-3.5 h-3.5 opacity-70"></i>
+                    </button>
+                    <button onclick="filterProducts('Kids Wear')" class="nav-item flex items-center gap-1 hover:text-rose-700 transition py-1.5 px-2 rounded-lg" data-nav="Kids Wear">
+                        Kids <i data-lucide="chevron-down" class="w-3.5 h-3.5 opacity-70"></i>
+                    </button>
+                    <a href="#collections-section" class="hover:text-rose-700 transition py-1.5 px-2">About Us</a>
+                    <a href="#footer" class="hover:text-rose-700 transition py-1.5 px-2">Contact</a>
+                </nav>
+
+                <!-- Right Utility Icons: Search, Profile/Wishlist, Cart -->
+                <div class="flex items-center space-x-2 sm:space-x-3">
+                    <button onclick="toggleSearchBar()" class="p-2 rounded-full hover:bg-nexora-blushLight transition" aria-label="Search">
+                        <i data-lucide="search" class="w-5 h-5 stroke-[1.8]"></i>
+                    </button>
+                    <button onclick="toggleWishlistView()" id="wishlist-btn" class="relative p-2 rounded-full hover:bg-nexora-blushLight transition" aria-label="Wishlist & Account">
+                        <i data-lucide="user" class="w-5 h-5 stroke-[1.8]"></i>
+                        <span id="wishlist-dot" class="hidden absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-rose-600"></span>
+                    </button>
+                    <button onclick="openCart()" class="relative p-2 rounded-full hover:bg-nexora-blushLight transition" aria-label="Shopping Bag">
+                        <i data-lucide="shopping-bag" class="w-5 h-5 stroke-[1.8]"></i>
+                        <span id="cart-badge" class="absolute top-0.5 right-0.5 bg-nexora-dark text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Expandable Search Bar -->
+            <div id="search-drawer" class="hidden pb-4">
+                <div class="max-w-xl mx-auto flex items-center bg-nexora-blushLight/70 border border-nexora-blush rounded-full px-4 py-2">
+                    <i data-lucide="search" class="w-4 h-4 text-neutral-500"></i>
+                    <input type="text" id="search-input" placeholder="Search kurtis, dresses, hoodies, shirts..." class="bg-transparent border-none focus:outline-none text-sm ml-2.5 w-full">
+                    <button onclick="clearSearch()" class="text-xs text-neutral-500 hover:text-nexora-dark ml-2">Clear</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Slide-Out Menu -->
+    <div id="mobile-overlay" class="fixed inset-0 bg-black/40 z-40 hidden" onclick="closeMobileMenu()"></div>
+    <aside id="mobile-drawer" class="fixed inset-y-0 left-0 w-72 bg-white z-50 transform -translate-x-full transition-transform duration-300 p-6 flex flex-col justify-between shadow-2xl">
+        <div>
+            <div class="flex items-center justify-between pb-6 border-b border-nexora-blush">
+                <span class="font-serif text-2xl font-bold tracking-wider">NEXORA</span>
+                <button onclick="closeMobileMenu()" class="p-1.5 rounded-full hover:bg-nexora-blushLight">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <div class="flex flex-col space-y-3 mt-6 text-base font-medium">
+                <button onclick="resetFilters(); closeMobileMenu();" class="text-left py-2 px-3 rounded-xl bg-nexora-blushLight font-semibold">Home</button>
+                <button onclick="filterProducts('All'); closeMobileMenu();" class="text-left py-2 px-3 rounded-xl hover:bg-nexora-blushLight">Shop All</button>
+                <button onclick="filterProducts('Women Wear'); closeMobileMenu();" class="text-left py-2 px-3 rounded-xl hover:bg-nexora-blushLight">Women Wear</button>
+                <button onclick="filterProducts('Men Wear'); closeMobileMenu();" class="text-left py-2 px-3 rounded-xl hover:bg-nexora-blushLight">Men Wear</button>
+                <button onclick="filterProducts('Kids Wear'); closeMobileMenu();" class="text-left py-2 px-3 rounded-xl hover:bg-nexora-blushLight">Kids Wear</button>
+                <button onclick="filterProducts('Kurtis'); closeMobileMenu();" class="text-left py-2 px-3 rounded-xl hover:bg-nexora-blushLight">Kurtis & Dresses</button>
+                <button onclick="filterProducts('Hoodies'); closeMobileMenu();" class="text-left py-2 px-3 rounded-xl hover:bg-nexora-blushLight">Hoodies & Tees</button>
+            </div>
+        </div>
+        <div class="text-xs text-neutral-500 pt-4 border-t border-nexora-blush">
+            Wear Your Vibe • Free Shipping above ₹999
+        </div>
+    </aside>
+
+    <!-- HERO BANNER SECTION (Matching Reference Aesthetic) -->
+    <section class="relative hero-gradient overflow-hidden border-b border-nexora-blush/60">
+        <!-- Decorative Botanical Line Art SVG Left -->
+        <svg class="hidden md:block absolute left-0 top-4 w-44 h-64 text-nexora-dark/40 pointer-events-none" viewBox="0 0 160 240" fill="none" stroke="currentColor" stroke-width="1.2">
+            <path d="M-10 220 C40 160, 60 90, 90 20"/>
+            <path d="M35 155 C15 140, 5 120, 20 110 C35 120, 40 140, 35 155 Z"/>
+            <path d="M52 125 C75 120, 95 105, 85 92 C70 95, 58 110, 52 125 Z"/>
+            <path d="M68 90 C45 75, 35 55, 50 45 C65 55, 72 75, 68 90 Z"/>
+            <path d="M80 58 C102 52, 118 38, 108 26 C95 30, 84 44, 80 58 Z"/>
+        </svg>
+
+        <!-- Decorative Botanical Sprig Right -->
+        <svg class="hidden md:block absolute right-0 top-2 w-40 h-56 text-nexora-dark/40 pointer-events-none" viewBox="0 0 150 200" fill="none" stroke="currentColor" stroke-width="1.2">
+            <path d="M160 170 C120 130, 95 75, 75 15"/>
+            <ellipse cx="95" cy="65" rx="14" ry="6" transform="rotate(-35 95 65)" fill="#D9A7A7" fill-opacity="0.35"/>
+            <ellipse cx="115" cy="95" rx="15" ry="6" transform="rotate(-25 115 95)" fill="#D9A7A7" fill-opacity="0.35"/>
+            <ellipse cx="82" cy="92" rx="14" ry="6" transform="rotate(30 82 92)" fill="#D9A7A7" fill-opacity="0.35"/>
+            <ellipse cx="105" cy="128" rx="15" ry="6" transform="rotate(25 105 128)" fill="#D9A7A7" fill-opacity="0.35"/>
+        </svg>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-0">
+            <div class="grid grid-cols-1 lg:grid-cols-12 items-center gap-6 lg:min-h-[430px]">
+                
+                <!-- Left Column: NEXORA Brand & Tagline -->
+                <div class="lg:col-span-4 text-center flex flex-col items-center justify-center z-10 py-4">
+                    <h1 class="font-serif text-5xl sm:text-6xl font-semibold tracking-wide text-nexora-dark leading-none">
+                        NEXORA
+                    </h1>
+                    <div class="flex items-center justify-center gap-2 mt-1">
+                        <span class="font-script text-3xl sm:text-4xl text-nexora-dark/90">Wear Your Vibe</span>
+                        <!-- Hand-drawn Heart SVG -->
+                        <svg class="w-6 h-6 text-nexora-dark/80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                        </svg>
+                    </div>
+                    <p class="text-sm sm:text-base text-nexora-dark/90 font-medium tracking-wide mt-4">
+                        Trendy &nbsp;•&nbsp; Comfortable &nbsp;•&nbsp; For Everyone
+                    </p>
+                    <button onclick="scrollToCatalog('All')" class="mt-6 px-7 py-2.5 bg-[#1D191A] text-white text-sm font-medium rounded-full hover:bg-neutral-800 transition shadow-md inline-flex items-center gap-2 group">
+                        <span>Shop Now</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                    </button>
+                </div>
+
+                <!-- Center Column: Trio Models Showcase (Women, Men, Kids) -->
+                <div class="lg:col-span-5 flex items-end justify-center self-end relative z-10">
+                    <div class="relative w-full max-w-md lg:max-w-none">
+                        <div class="rounded-t-3xl lg:rounded-none overflow-hidden shadow-lg lg:shadow-none">
+                            <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=1000&q=85" 
+                                 onerror="this.src='https://placehold.co/800x650/EBD3D3/1F1A1B?text=NEXORA+Family+Collection'" 
+                                 alt="NEXORA Ethnic & Casual Fashion Models" 
+                                 class="w-full h-[320px] sm:h-[380px] lg:h-[420px] object-cover object-top rounded-2xl lg:rounded-t-3xl lg:rounded-b-none">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: New Arrivals Callout -->
+                <div class="lg:col-span-3 text-center flex flex-col items-center justify-center z-10 py-4">
+                    <div class="relative inline-block">
+                        <h2 class="font-script text-5xl sm:text-6xl text-nexora-dark leading-[0.85]">
+                            New<br>Arrivals
+                        </h2>
+                        <svg class="w-5 h-5 text-nexora-dark/80 absolute -right-5 bottom-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                        </svg>
+                    </div>
+                    <p class="text-sm text-nexora-dark/85 mt-3 leading-snug">
+                        Step into<br>style with NEXORA
+                    </p>
+                    <button onclick="scrollToCatalog('All')" class="mt-5 px-6 py-2 bg-[#1D191A] text-white text-xs sm:text-sm font-medium rounded-full hover:bg-neutral-800 transition shadow-md inline-flex items-center gap-1.5 group">
+                        <span>Explore More</span>
+                        <i data-lucide="arrow-right" class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 8 CIRCULAR CATEGORY BUBBLES ROW (Exact match to reference) -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-6">
+        <div class="grid grid-cols-4 sm:grid-cols-4 lg:grid-cols-8 gap-4 sm:gap-6 justify-items-center" id="circular-categories">
+            <!-- Injected via JS for interactive filtering -->
+        </div>
+    </section>
+
+    <!-- OUR COLLECTIONS SECTION (4 Featured Promo Cards) -->
+    <section id="collections-section" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <!-- Divider Title with Heart -->
+        <div class="flex items-center justify-center gap-4 mb-6">
+            <div class="h-[1px] w-16 sm:w-24 bg-neutral-400"></div>
+            <h2 class="font-serif text-2xl sm:text-3xl font-semibold text-nexora-dark flex items-center gap-2">
+                Our Collections
+                <svg class="w-5 h-5 text-nexora-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+            </h2>
+            <div class="h-[1px] w-16 sm:w-24 bg-neutral-400"></div>
+        </div>
+
+        <!-- 4 Promo Cards Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- Card 1: Elegant Ladies Wear -->
+            <div onclick="scrollToCatalog('Women Wear')" class="card-blush-gradient rounded-2xl overflow-hidden shadow-xs hover:shadow-md transition cursor-pointer grid grid-cols-12 items-center h-40 group border border-nexora-blush">
+                <div class="col-span-5 h-full overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1583391733956-6c78276477e2?auto=format&fit=crop&w=500&q=80" 
+                         onerror="this.src='https://placehold.co/300x400/EBD3D3/1F1A1B?text=Ladies'" 
+                         alt="Elegant Ladies Wear" 
+                         class="w-full h-full object-cover object-top group-hover:scale-105 transition duration-500">
+                </div>
+                <div class="col-span-7 p-3 text-center flex flex-col items-center justify-center">
+                    <h3 class="font-serif italic text-xl font-bold text-nexora-dark leading-tight">
+                        Elegant<br>Ladies Wear
+                    </h3>
+                    <span class="mt-2.5 px-4 py-1.5 bg-[#1D191A] text-white text-[11px] font-medium rounded-full inline-flex items-center gap-1 group-hover:bg-neutral-800 transition">
+                        Shop Now <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Card 2: Classic Men's Wear -->
+            <div onclick="scrollToCatalog('Men Wear')" class="card-peach-gradient rounded-2xl overflow-hidden shadow-xs hover:shadow-md transition cursor-pointer grid grid-cols-12 items-center h-40 group border border-nexora-peach">
+                <div class="col-span-5 h-full overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=500&q=80" 
+                         onerror="this.src='https://placehold.co/300x400/EED9CC/1F1A1B?text=Mens'" 
+                         alt="Classic Men's Wear" 
+                         class="w-full h-full object-cover object-top group-hover:scale-105 transition duration-500">
+                </div>
+                <div class="col-span-7 p-3 text-center flex flex-col items-center justify-center">
+                    <h3 class="font-serif italic text-xl font-bold text-nexora-dark leading-tight">
+                        Classic<br>Men's Wear
+                    </h3>
+                    <span class="mt-2.5 px-4 py-1.5 bg-[#1D191A] text-white text-[11px] font-medium rounded-full inline-flex items-center gap-1 group-hover:bg-neutral-800 transition">
+                        Shop Now <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Card 3: Trendy Kids Fashion -->
+            <div onclick="scrollToCatalog('Kids Wear')" class="card-peach-gradient rounded-2xl overflow-hidden shadow-xs hover:shadow-md transition cursor-pointer grid grid-cols-12 items-center h-40 group border border-nexora-peach">
+                <div class="col-span-5 h-full overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?auto=format&fit=crop&w=500&q=80" 
+                         onerror="this.src='https://placehold.co/300x400/EED9CC/1F1A1B?text=Kids'" 
+                         alt="Trendy Kids Fashion" 
+                         class="w-full h-full object-cover object-top group-hover:scale-105 transition duration-500">
+                </div>
+                <div class="col-span-7 p-3 text-center flex flex-col items-center justify-center">
+                    <h3 class="font-serif italic text-xl font-bold text-nexora-dark leading-tight">
+                        Trendy<br>Kids Fashion
+                    </h3>
+                    <span class="mt-2.5 px-4 py-1.5 bg-[#1D191A] text-white text-[11px] font-medium rounded-full inline-flex items-center gap-1 group-hover:bg-neutral-800 transition">
+                        Shop Now <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Card 4: Comfort In Every Thread -->
+            <div onclick="scrollToCatalog('T-Shirts')" class="card-blush-gradient rounded-2xl overflow-hidden shadow-xs hover:shadow-md transition cursor-pointer grid grid-cols-12 items-center h-40 group border border-nexora-blush">
+                <div class="col-span-5 h-full overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1523381294911-8d3cead13475?auto=format&fit=crop&w=500&q=80" 
+                         onerror="this.src='https://placehold.co/300x400/EBD3D3/1F1A1B?text=Comfort'" 
+                         alt="Comfort In Every Thread" 
+                         class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-500">
+                </div>
+                <div class="col-span-7 p-3 text-center flex flex-col items-center justify-center">
+                    <h3 class="font-serif italic text-xl font-bold text-nexora-dark leading-tight">
+                        Comfort<br><span class="text-base font-normal">In Every Thread</span>
+                    </h3>
+                    <span class="mt-2.5 px-4 py-1.5 bg-[#1D191A] text-white text-[11px] font-medium rounded-full inline-flex items-center gap-1 group-hover:bg-neutral-800 transition">
+                        Shop Now <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4 TRUST BADGES STRIP (Exact match to bottom of reference) -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 border-b border-nexora-blush/60">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-0 lg:divide-x divide-neutral-300">
+            <div class="flex items-center justify-center gap-3 px-4">
+                <i data-lucide="gift" class="w-7 h-7 stroke-[1.5] text-nexora-dark flex-shrink-0"></i>
+                <div>
+                    <h4 class="text-xs sm:text-sm font-bold text-nexora-dark">Premium Quality</h4>
+                    <p class="text-xs text-neutral-500">Always</p>
+                </div>
+            </div>
+            <div class="flex items-center justify-center gap-3 px-4">
+                <i data-lucide="shield-check" class="w-7 h-7 stroke-[1.5] text-nexora-dark flex-shrink-0"></i>
+                <div>
+                    <h4 class="text-xs sm:text-sm font-bold text-nexora-dark">Secure Payments</h4>
+                    <p class="text-xs text-neutral-500">100% Safe</p>
+                </div>
+            </div>
+            <div class="flex items-center justify-center gap-3 px-4">
+                <i data-lucide="headphones" class="w-7 h-7 stroke-[1.5] text-nexora-dark flex-shrink-0"></i>
+                <div>
+                    <h4 class="text-xs sm:text-sm font-bold text-nexora-dark">24/7 Customer Support</h4>
+                    <p class="text-xs text-neutral-500">We're Here to Help</p>
+                </div>
+            </div>
+            <div class="flex items-center justify-center gap-3 px-4">
+                <i data-lucide="package-check" class="w-7 h-7 stroke-[1.5] text-nexora-dark flex-shrink-0"></i>
+                <div>
+                    <h4 class="text-xs sm:text-sm font-bold text-nexora-dark">Easy Returns</h4>
+                    <p class="text-xs text-neutral-500">Hassle-Free</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE STOREFRONT PRODUCT CATALOG -->
+    <main id="catalog" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+            <div>
+                <span class="text-xs uppercase tracking-widest text-rose-700 font-semibold">Curated Wardrobe</span>
+                <h2 id="catalog-heading" class="font-serif text-3xl font-bold text-nexora-dark mt-0.5">Featured Styles</h2>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-2.5">
+                <button onclick="filterProducts('All')" class="filter-chip px-4 py-1.5 rounded-full text-xs font-semibold bg-nexora-dark text-white transition" data-cat="All">All</button>
+                <button onclick="filterProducts('Women Wear')" class="filter-chip px-4 py-1.5 rounded-full text-xs font-semibold bg-nexora-blushLight text-nexora-dark hover:bg-nexora-blush transition" data-cat="Women Wear">Women</button>
+                <button onclick="filterProducts('Men Wear')" class="filter-chip px-4 py-1.5 rounded-full text-xs font-semibold bg-nexora-blushLight text-nexora-dark hover:bg-nexora-blush transition" data-cat="Men Wear">Men</button>
+                <button onclick="filterProducts('Kids Wear')" class="filter-chip px-4 py-1.5 rounded-full text-xs font-semibold bg-nexora-blushLight text-nexora-dark hover:bg-nexora-blush transition" data-cat="Kids Wear">Kids</button>
+                <button onclick="filterProducts('Kurtis')" class="filter-chip px-4 py-1.5 rounded-full text-xs font-semibold bg-nexora-blushLight text-nexora-dark hover:bg-nexora-blush transition" data-cat="Kurtis">Kurtis</button>
+                <button onclick="filterProducts('Hoodies')" class="filter-chip px-4 py-1.5 rounded-full text-xs font-semibold bg-nexora-blushLight text-nexora-dark hover:bg-nexora-blush transition" data-cat="Hoodies">Hoodies</button>
+
+                <select id="sort-dropdown" onchange="renderCatalog()" class="ml-1 bg-white border border-nexora-blush text-xs font-medium rounded-full px-3.5 py-1.5 focus:outline-none">
+                    <option value="featured">Sort: Featured</option>
+                    <option value="low">Price: Low to High</option>
+                    <option value="high">Price: High to Low</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Product Cards Grid -->
+        <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Dynamically populated -->
+        </div>
+
+        <!-- Empty Search State -->
+        <div id="empty-catalog" class="hidden text-center py-16 bg-nexora-blushLight/40 rounded-3xl">
+            <p class="font-serif text-2xl font-semibold text-nexora-dark">No matching styles found</p>
+            <p class="text-sm text-neutral-500 mt-1">Try resetting your filters or searching another garment.</p>
+            <button onclick="resetFilters()" class="mt-4 px-6 py-2 bg-nexora-dark text-white text-xs font-semibold rounded-full">Show All Styles</button>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer id="footer" class="bg-[#1D191A] text-white pt-14 pb-8 mt-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-10 border-b border-white/10">
+                <div class="md:col-span-2 space-y-3">
+                    <div class="flex items-center gap-2">
+                        <span class="font-serif text-3xl font-semibold tracking-wider">NEXORA</span>
+                        <span class="font-script text-2xl text-nexora-blush">Wear Your Vibe</span>
+                    </div>
+                    <p class="text-sm text-neutral-400 max-w-sm">
+                        Trendy, comfortable, and thoughtfully crafted clothing for Women, Men, and Kids. Designed to celebrate your everyday vibe.
+                    </p>
+                    <form onsubmit="subscribeNewsletter(event)" class="flex max-w-sm pt-2">
+                        <input type="email" required placeholder="Your email for 15% off first order" class="bg-white/10 border border-white/15 rounded-l-full px-4 py-2 text-xs text-white placeholder-neutral-400 focus:outline-none w-full">
+                        <button type="submit" class="bg-nexora-blush text-nexora-dark font-bold text-xs px-5 py-2 rounded-r-full hover:bg-white transition">Join</button>
+                    </form>
+                </div>
+                <div>
+                    <h5 class="text-xs font-bold uppercase tracking-wider text-nexora-blush mb-3">Categories</h5>
+                    <ul class="space-y-2 text-sm text-neutral-300">
+                        <li><button onclick="scrollToCatalog('Women Wear')" class="hover:text-white">Women Wear</button></li>
+                        <li><button onclick="scrollToCatalog('Men Wear')" class="hover:text-white">Men Wear</button></li>
+                        <li><button onclick="scrollToCatalog('Kids Wear')" class="hover:text-white">Kids Wear</button></li>
+                        <li><button onclick="scrollToCatalog('Kurtis')" class="hover:text-white">Kurtis & Dresses</button></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="text-xs font-bold uppercase tracking-wider text-nexora-blush mb-3">Customer Care</h5>
+                    <ul class="space-y-2 text-sm text-neutral-300">
+                        <li>Free Shipping Over ₹999</li>
+                        <li>7-Day Hassle-Free Returns</li>
+                        <li>Track Your Order</li>
+                        <li>support@nexorawear.in</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-neutral-400 gap-2">
+                <p>© 2026 NEXORA Apparel. All Rights Reserved.</p>
+                <p>Trendy • Comfortable • For Everyone</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- PRODUCT QUICK VIEW MODAL -->
+    <div id="quick-modal" class="fixed inset-0 z-50 hidden overflow-y-auto">
+        <div class="flex items-center justify-center min-h-screen px-4 py-8">
+            <div class="fixed inset-0 bg-black/60 backdrop-blur-xs" onclick="closeQuickModal()"></div>
+            <div class="bg-white rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl relative z-10">
+                <button onclick="closeQuickModal()" class="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-white/90 flex items-center justify-center hover:bg-nexora-blush transition shadow-xs">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+                <div id="quick-modal-body" class="grid grid-cols-1 md:grid-cols-2"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE-OVER SHOPPING BAG DRAWER -->
+    <div id="cart-backdrop" class="fixed inset-0 bg-black/50 z-40 hidden" onclick="closeCart()"></div>
+    <aside id="cart-panel" class="fixed inset-y-0 right-0 max-w-md w-full bg-white z-50 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
+        <div class="px-6 py-4 border-b border-nexora-blush flex items-center justify-between bg-nexora-blushLight/40">
+            <div class="flex items-center gap-2">
+                <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                <h3 class="font-serif text-xl font-bold">Your Bag</h3>
+                <span id="drawer-count" class="text-xs bg-nexora-blush px-2 py-0.5 rounded-full font-semibold">0</span>
+            </div>
+            <button onclick="closeCart()" class="p-1.5 rounded-full hover:bg-nexora-blush transition">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+
+        <!-- Free Shipping ₹999 Progress Bar -->
+        <div class="px-6 py-3 bg-nexora-blushLight border-b border-nexora-blush">
+            <p id="free-ship-text" class="text-xs font-medium text-nexora-dark mb-1.5">Add ₹999 more for Free Shipping!</p>
+            <div class="w-full bg-white rounded-full h-1.5 overflow-hidden">
+                <div id="free-ship-bar" class="bg-nexora-dark h-full transition-all duration-300" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <div id="cart-list" class="flex-1 overflow-y-auto p-6 space-y-4"></div>
+
+        <div class="p-6 border-t border-nexora-blush bg-nexora-cream space-y-3">
+            <div class="flex justify-between text-sm text-neutral-600">
+                <span>Subtotal</span>
+                <span id="bag-subtotal">₹0</span>
+            </div>
+            <div class="flex justify-between text-sm text-neutral-600">
+                <span>Shipping</span>
+                <span id="bag-shipping">₹99</span>
+            </div>
+            <div class="flex justify-between font-bold text-base text-nexora-dark pt-2 border-t border-nexora-blush">
+                <span>Total</span>
+                <span id="bag-total">₹0</span>
+            </div>
+            <button id="checkout-trigger" onclick="openCheckout()" class="w-full py-3 bg-[#1D191A] text-white text-sm font-semibold rounded-full hover:bg-neutral-800 transition disabled:opacity-40">
+                Proceed to Checkout
+            </button>
+        </div>
+    </aside>
+
+    <!-- CHECKOUT MODAL -->
+    <div id="checkout-modal" class="fixed inset-0 z-50 hidden overflow-y-auto">
+        <div class="flex items-center justify-center min-h-screen px-4">
+            <div class="fixed inset-0 bg-black/60" onclick="closeCheckout()"></div>
+            <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 relative z-10 shadow-2xl">
+                <div id="checkout-form-box">
+                    <div class="flex justify-between items-center mb-5">
+                        <h3 class="font-serif text-2xl font-bold">Quick Checkout</h3>
+                        <button onclick="closeCheckout()" class="p-1.5 rounded-full hover:bg-nexora-blushLight"><i data-lucide="x" class="w-5 h-5"></i></button>
+                    </div>
+                    <form onsubmit="submitOrder(event)" class="space-y-3.5">
+                        <input type="text" required placeholder="Full Name" class="w-full px-4 py-2.5 rounded-xl border border-nexora-blush text-sm focus:outline-none focus:border-nexora-dark">
+                        <input type="text" required placeholder="Complete Delivery Address" class="w-full px-4 py-2.5 rounded-xl border border-nexora-blush text-sm focus:outline-none focus:border-nexora-dark">
+                        <div class="grid grid-cols-2 gap-3">
+                            <input type="text" required placeholder="City" class="w-full px-4 py-2.5 rounded-xl border border-nexora-blush text-sm focus:outline-none focus:border-nexora-dark">
+                            <input type="text" required placeholder="PIN Code" class="w-full px-4 py-2.5 rounded-xl border border-nexora-blush text-sm focus:outline-none focus:border-nexora-dark">
+                        </div>
+                        <select class="w-full px-4 py-2.5 rounded-xl border border-nexora-blush text-sm bg-white focus:outline-none">
+                            <option>UPI / GPay / PhonePe</option>
+                            <option>Credit / Debit Card</option>
+                            <option>Cash on Delivery</option>
+                        </select>
+                        <button type="submit" class="w-full py-3 bg-[#1D191A] text-white text-sm font-semibold rounded-full hover:bg-neutral-800 transition mt-2">
+                            Confirm Order • <span id="checkout-pay-total">₹0</span>
+                        </button>
+                    </form>
+                </div>
+                <div id="checkout-done-box" class="hidden text-center py-6 space-y-3">
+                    <div class="w-14 h-14 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto">
+                        <i data-lucide="check" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl font-bold">Order Placed!</h3>
+                    <p class="text-sm text-neutral-600">Thank you for shopping with NEXORA. Your order #NX-4092 is confirmed.</p>
+                    <button onclick="closeCheckout()" class="w-full py-2.5 bg-[#1D191A] text-white text-xs font-semibold rounded-full mt-2">Continue Shopping</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 8 Circular Categories matching the exact reference layout
+        const circularCategories = [
+            { label: "Women\nWear", filter: "Women Wear", image: "https://images.unsplash.com/photo-1583391733956-6c78276477e2?auto=format&fit=crop&w=400&q=80" },
+            { label: "Men\nWear", filter: "Men Wear", image: "https://images.unsplash.com/photo-1617137968427-85924c800a22?auto=format&fit=crop&w=400&q=80" },
+            { label: "Kids\nWear", filter: "Kids Wear", image: "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?auto=format&fit=crop&w=400&q=80" },
+            { label: "T-Shirts", filter: "T-Shirts", image: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=400&q=80" },
+            { label: "Shirts", filter: "Shirts", image: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=400&q=80" },
+            { label: "Dresses", filter: "Dresses", image: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=400&q=80" },
+            { label: "Kurtis", filter: "Kurtis", image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=400&q=80" },
+            { label: "Hoodies", filter: "Hoodies", image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=400&q=80" }
+        ];
+
+        // Product Catalog tailored to NEXORA's collections
+        const products = [
+            {
+                id: 101,
+                name: "Plum Zari Embroidered Anarkali Kurti",
+                category: "Kurtis",
+                group: "Women Wear",
+                price: 1699,
+                badge: "Bestseller",
+                fabric: "Soft Georgette with Mulmul Lining",
+                description: "Rich plum festive kurti adorned with delicate metallic threadwork and graceful flared silhouette.",
+                sizes: ["S", "M", "L", "XL"],
+                image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=700&q=80"
+            },
+            {
+                id: 102,
+                name: "Olive Tailored Casual Cotton Shirt",
+                category: "Shirts",
+                group: "Men Wear",
+                price: 1299,
+                badge: "New Arrival",
+                fabric: "100% Breathable Poplin Cotton",
+                description: "Crisp olive button-down shirt engineered for all-day comfort and effortless smart-casual styling.",
+                sizes: ["S", "M", "L", "XL"],
+                image: "https://images.unsplash.com/photo-1617137968427-85924c800a22?auto=format&fit=crop&w=700&q=80"
+            },
+            {
+                id: 103,
+                name: "Blush Rose Floral Tiered Kids Dress",
+                category: "Dresses",
+                group: "Kids Wear",
+                price: 999,
+                badge: "Kids Favorite",
+                fabric: "100% Gentle Organic Cotton",
+                description: "Soft pastel floral dress with flutter sleeves and breathable cotton lining designed for active little ones.",
+                sizes: ["4-5Y", "6-7Y", "8-9Y", "10-11Y"],
+                image: "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?auto=format&fit=crop&w=700&q=80"
+            },
+            {
+                id: 104,
+                name: "Dusty Rose Oversized Combed Tee",
+                category: "T-Shirts",
+                group: "Women Wear",
+                price: 799,
+                badge: "Comfort Pick",
+                fabric: "220 GSM Bio-Washed Cotton",
+                description: "Ultra-soft drop-shoulder crewneck t-shirt in NEXORA's signature dusty blush shade.",
+                sizes: ["XS", "S", "M", "L"],
+                image: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=700&q=80"
+            },
+            {
+                id: 105,
+                name: "Midnight Navy Heavyweight Hoodie",
+                category: "Hoodies",
+                group: "Men Wear",
+                price: 1899,
+                badge: "Trending",
+                fabric: "400 GSM Brushed Fleece Cotton",
+                description: "Cozy everyday pullover hoodie with kangaroo pocket and double-lined hood.",
+                sizes: ["S", "M", "L", "XL"],
+                image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=700&q=80"
+            },
+            {
+                id: 106,
+                name: "Pleated Mauve Midi Sundress",
+                category: "Dresses",
+                group: "Women Wear",
+                price: 1599,
+                badge: "Limited",
+                fabric: "Flowy Viscose Chiffon Blend",
+                description: "Feminine V-neck midi dress with waist tie-up and soft accordion pleats.",
+                sizes: ["XS", "S", "M", "L"],
+                image: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=700&q=80"
+            },
+            {
+                id: 107,
+                name: "Sandstone Linen Blend Overshirt",
+                category: "Shirts",
+                group: "Men Wear",
+                price: 1499,
+                badge: "Classic",
+                fabric: "55% Linen, 45% Cotton",
+                description: "Relaxed warm-weather overshirt in earthy sandstone tone with natural shell buttons.",
+                sizes: ["S", "M", "L", "XL"],
+                image: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=700&q=80"
+            },
+            {
+                id: 108,
+                name: "Mustard Block-Print Straight Kurti",
+                category: "Kurtis",
+                group: "Women Wear",
+                price: 1199,
+                badge: "Everyday Ethnic",
+                fabric: "Pure Cambric Cotton",
+                description: "Hand-inspired botanical print straight kurti with three-quarter sleeves and side slits.",
+                sizes: ["S", "M", "L", "XL"],
+                image: "https://images.unsplash.com/photo-1583391733956-6c78276477e2?auto=format&fit=crop&w=700&q=80"
+            }
+        ];
+
+        let state = {
+            activeCategory: 'All',
+            searchQuery: '',
+            wishlist: [],
+            cart: [],
+            modalSize: null
+        };
+
+        const FREE_SHIP_LIMIT = 999;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCircularCategories();
+            renderCatalog();
+            updateBagUI();
+            lucide.createIcons();
+
+            document.getElementById('search-input').addEventListener('input', (e) => {
+                state.searchQuery = e.target.value.trim().toLowerCase();
+                renderCatalog();
+            });
+
+            document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+                document.getElementById('mobile-overlay').classList.remove('hidden');
+                document.getElementById('mobile-drawer').classList.remove('-translate-x-full');
+            });
+        });
+
+        function closeMobileMenu() {
+            document.getElementById('mobile-overlay').classList.add('hidden');
+            document.getElementById('mobile-drawer').classList.add('-translate-x-full');
+        }
+
+        function renderCircularCategories() {
+            const container = document.getElementById('circular-categories');
+            container.innerHTML = circularCategories.map(cat => `
+                <button onclick="scrollToCatalog('${cat.filter}')" class="group flex flex-col items-center text-center focus:outline-none">
+                    <div class="w-20 h-20 sm:w-28 sm:h-28 rounded-full bg-nexora-blush/80 p-1.5 overflow-hidden shadow-xs group-hover:shadow-md group-hover:scale-105 group-hover:bg-nexora-rose/50 transition-all duration-300 border border-nexora-blush">
+                        <img src="${cat.image}" 
+                             onerror="this.src='https://placehold.co/200x200/EBD3D3/1F1A1B?text=${encodeURIComponent(cat.filter)}'" 
+                             alt="${cat.filter}" 
+                             class="w-full h-full object-cover object-top rounded-full">
+                    </div>
+                    <span class="mt-2.5 text-xs sm:text-sm font-semibold text-nexora-dark leading-tight whitespace-pre-line group-hover:text-rose-800 transition">
+                        ${cat.label}
+                    </span>
+                </button>
+            `).join('');
+        }
+
+        function scrollToCatalog(category) {
+            filterProducts(category);
+            document.getElementById('catalog').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function filterProducts(category) {
+            state.activeCategory = category;
+
+            // Update filter chips
+            document.querySelectorAll('.filter-chip').forEach(chip => {
+                if (chip.dataset.cat === category) {
+                    chip.classList.add('bg-nexora-dark', 'text-white');
+                    chip.classList.remove('bg-nexora-blushLight', 'text-nexora-dark');
+                } else {
+                    chip.classList.remove('bg-nexora-dark', 'text-white');
+                    chip.classList.add('bg-nexora-blushLight', 'text-nexora-dark');
+                }
+            });
+
+            // Update header nav highlight
+            document.querySelectorAll('.nav-item').forEach(item => {
+                if (item.dataset.nav === category || (category === 'All' && item.dataset.nav === 'Home')) {
+                    item.classList.add('bg-nexora-pill/80', 'font-semibold');
+                } else {
+                    item.classList.remove('bg-nexora-pill/80', 'font-semibold');
+                }
+            });
+
+            document.getElementById('catalog-heading').textContent = category === 'All' ? 'Featured Styles' : category;
+            renderCatalog();
+        }
+
+        function resetFilters() {
+            state.activeCategory = 'All';
+            state.searchQuery = '';
+            document.getElementById('search-input').value = '';
+            filterProducts('All');
+        }
+
+        function toggleSearchBar() {
+            const drawer = document.getElementById('search-drawer');
+            drawer.classList.toggle('hidden');
+            if (!drawer.classList.contains('hidden')) {
+                document.getElementById('search-input').focus();
+            }
+        }
+
+        function clearSearch() {
+            state.searchQuery = '';
+            document.getElementById('search-input').value = '';
+            renderCatalog();
+        }
+
+        function renderCatalog() {
+            const sortVal = document.getElementById('sort-dropdown').value;
+            let list = products.filter(p => {
+                const matchCat = state.activeCategory === 'All' || p.category === state.activeCategory || p.group === state.activeCategory;
+                const matchSearch = p.name.toLowerCase().includes(state.searchQuery) || p.category.toLowerCase().includes(state.searchQuery);
+                return matchCat && matchSearch;
+            });
+
+            if (sortVal === 'low') list.sort((a, b) => a.price - b.price);
+            if (sortVal === 'high') list.sort((a, b) => b.price - a.price);
+
+            const grid = document.getElementById('products-grid');
+            const empty = document.getElementById('empty-catalog');
+
+            if (list.length === 0) {
+                grid.innerHTML = '';
+                empty.classList.remove('hidden');
+                return;
+            }
+
+            empty.classList.add('hidden');
+            grid.innerHTML = list.map(item => {
+                const isFav = state.wishlist.includes(item.id);
+                return `
+                    <div class="group bg-white rounded-2xl border border-nexora-blush/70 overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col">
+                        <div class="relative aspect-[3/4] bg-nexora-blushLight overflow-hidden cursor-pointer" onclick="openQuickModal(${item.id})">
+                            <img src="${item.image}" 
+                                 onerror="this.src='https://placehold.co/500x650/EBD3D3/1F1A1B?text=${encodeURIComponent(item.name)}'" 
+                                 alt="${item.name}" 
+                                 class="w-full h-full object-cover object-top group-hover:scale-105 transition duration-500">
+                            <span class="absolute top-3 left-3 bg-white/90 text-nexora-dark text-[11px] font-semibold px-2.5 py-1 rounded-full">
+                                ${item.badge}
+                            </span>
+                            <button onclick="event.stopPropagation(); toggleWishlist(${item.id})" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 flex items-center justify-center hover:scale-110 transition">
+                                <i data-lucide="heart" class="w-4 h-4 ${isFav ? 'fill-rose-600 text-rose-600' : 'text-nexora-dark'}"></i>
+                            </button>
+                            <div class="absolute inset-x-3 bottom-3 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition duration-300">
+                                <button onclick="event.stopPropagation(); addToBag(${item.id}, '${item.sizes[1] || item.sizes[0]}')" class="w-full py-2 bg-[#1D191A] text-white text-xs font-semibold rounded-full shadow-md hover:bg-neutral-800">
+                                    + Quick Add (${item.sizes[1] || item.sizes[0]})
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-4 flex-1 flex flex-col justify-between">
+                            <div>
+                                <p class="text-[11px] text-neutral-500 uppercase tracking-wider">${item.group} • ${item.category}</p>
+                                <h3 onclick="openQuickModal(${item.id})" class="font-semibold text-sm text-nexora-dark mt-0.5 hover:text-rose-800 cursor-pointer line-clamp-1">${item.name}</h3>
+                            </div>
+                            <div class="mt-3 pt-2.5 border-t border-nexora-blushLight flex items-center justify-between">
+                                <span class="font-bold text-base text-nexora-dark">₹${item.price.toLocaleString('en-IN')}</span>
+                                <button onclick="openQuickModal(${item.id})" class="text-xs font-medium text-rose-800 hover:underline">Select Size</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            lucide.createIcons();
+        }
+
+        function toggleWishlist(id) {
+            const idx = state.wishlist.indexOf(id);
+            if (idx === -1) {
+                state.wishlist.push(id);
+                showToast("Saved to your wishlist ♥");
+            } else {
+                state.wishlist.splice(idx, 1);
+                showToast("Removed from wishlist");
+            }
+            document.getElementById('wishlist-dot').classList.toggle('hidden', state.wishlist.length === 0);
+            renderCatalog();
+        }
+
+        function toggleWishlistView() {
+            if (state.wishlist.length === 0) {
+                showToast("Your wishlist is empty. Tap the heart icon on any style!");
+                return;
+            }
+            const grid = document.getElementById('products-grid');
+            const favItems = products.filter(p => state.wishlist.includes(p.id));
+            document.getElementById('catalog-heading').textContent = `Your Wishlist (${favItems.length})`;
+            document.getElementById('catalog').scrollIntoView({ behavior: 'smooth' });
+            grid.innerHTML = favItems.map(item => `
+                <div class="bg-white rounded-2xl border border-nexora-blush overflow-hidden flex flex-col">
+                    <div class="relative aspect-[3/4] bg-nexora-blushLight">
+                        <img src="${item.image}" class="w-full h-full object-cover object-top">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-sm">${item.name}</h3>
+                        <div class="flex items-center justify-between mt-3">
+                            <span class="font-bold">₹${item.price.toLocaleString('en-IN')}</span>
+                            <button onclick="addToBag(${item.id}, '${item.sizes[0]}')" class="px-3 py-1.5 bg-nexora-dark text-white text-xs rounded-full">Move to Bag</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openQuickModal(id) {
+            const item = products.find(p => p.id === id);
+            if (!item) return;
+            state.modalSize = item.sizes[1] || item.sizes[0];
+
+            document.getElementById('quick-modal-body').innerHTML = `
+                <div class="bg-nexora-blushLight aspect-[3/4] md:aspect-auto">
+                    <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover object-top">
+                </div>
+                <div class="p-6 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-nexora-blush text-nexora-dark">${item.badge}</span>
+                        <h3 class="font-serif text-2xl font-bold text-nexora-dark mt-3">${item.name}</h3>
+                        <p class="text-lg font-bold text-rose-800 mt-1">₹${item.price.toLocaleString('en-IN')}</p>
+                        <p class="text-xs text-neutral-600 mt-3 leading-relaxed">${item.description}</p>
+                        <p class="text-xs bg-nexora-blushLight p-2.5 rounded-xl mt-3"><strong>Fabric:</strong> ${item.fabric}</p>
+                        <div class="mt-4">
+                            <span class="text-xs font-semibold uppercase text-neutral-500">Choose Size</span>
+                            <div class="grid grid-cols-4 gap-2 mt-2">
+                                ${item.sizes.map(sz => `
+                                    <button onclick="pickModalSize('${sz}')" data-sz="${sz}" class="modal-sz-btn py-2 rounded-xl text-xs font-semibold border ${sz === state.modalSize ? 'bg-nexora-dark text-white border-nexora-dark' : 'border-nexora-blush hover:border-nexora-dark'}">
+                                        ${sz}
+                                    </button>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="addToBag(${item.id}, state.modalSize); closeQuickModal();" class="mt-6 w-full py-3 bg-[#1D191A] text-white text-sm font-semibold rounded-full hover:bg-neutral-800 transition">
+                        Add to Shopping Bag
+                    </button>
+                </div>
+            `;
+            document.getElementById('quick-modal').classList.remove('hidden');
+        }
+
+        function pickModalSize(sz) {
+            state.modalSize = sz;
+            document.querySelectorAll('.modal-sz-btn').forEach(b => {
+                if (b.dataset.sz === sz) {
+                    b.classList.add('bg-nexora-dark', 'text-white', 'border-nexora-dark');
+                } else {
+                    b.classList.remove('bg-nexora-dark', 'text-white', 'border-nexora-dark');
+                }
+            });
+        }
+
+        function closeQuickModal() {
+            document.getElementById('quick-modal').classList.add('hidden');
+        }
+
+        function addToBag(id, size) {
+            const prod = products.find(p => p.id === id);
+            const found = state.cart.find(c => c.product.id === id && c.size === size);
+            if (found) {
+                found.qty += 1;
+            } else {
+                state.cart.push({ product: prod, size, qty: 1 });
+            }
+            updateBagUI();
+            showToast(`Added ${prod.name} (${size}) to bag`);
+        }
+
+        function changeQty(idx, delta) {
+            state.cart[idx].qty += delta;
+            if (state.cart[idx].qty <= 0) state.cart.splice(idx, 1);
+            updateBagUI();
+        }
+
+        function updateBagUI() {
+            const count = state.cart.reduce((acc, c) => acc + c.qty, 0);
+            const subtotal = state.cart.reduce((acc, c) => acc + (c.product.price * c.qty), 0);
+            const shipping = subtotal === 0 || subtotal >= FREE_SHIP_LIMIT ? 0 : 99;
+            const total = subtotal + shipping;
+
+            document.getElementById('cart-badge').textContent = count;
+            document.getElementById('drawer-count').textContent = count;
+
+            const pct = Math.min(100, (subtotal / FREE_SHIP_LIMIT) * 100);
+            document.getElementById('free-ship-bar').style.width = `${pct}%`;
+            document.getElementById('free-ship-text').innerHTML = subtotal >= FREE_SHIP_LIMIT
+                ? `<span class="text-emerald-700 font-semibold">✓ Unlocked Free Shipping!</span>`
+                : `Add ₹${(FREE_SHIP_LIMIT - subtotal).toLocaleString('en-IN')} more for Free Shipping!`;
+
+            const list = document.getElementById('cart-list');
+            const checkoutBtn = document.getElementById('checkout-trigger');
+
+            if (state.cart.length === 0) {
+                checkoutBtn.disabled = true;
+                list.innerHTML = `
+                    <div class="text-center py-16">
+                        <p class="font-serif text-xl font-semibold text-nexora-dark">Your shopping bag is empty</p>
+                        <p class="text-xs text-neutral-500 mt-1">Discover trendy, comfortable styles for everyone.</p>
+                    </div>
+                `;
+            } else {
+                checkoutBtn.disabled = false;
+                list.innerHTML = state.cart.map((c, idx) => `
+                    <div class="flex gap-3.5 pb-4 border-b border-nexora-blush/60">
+                        <img src="${c.product.image}" class="w-16 h-20 object-cover object-top rounded-xl bg-nexora-blushLight">
+                        <div class="flex-1">
+                            <h4 class="text-xs font-bold text-nexora-dark line-clamp-1">${c.product.name}</h4>
+                            <p class="text-[11px] text-neutral-500 mt-0.5">Size: ${c.size}</p>
+                            <div class="flex items-center justify-between mt-2.5">
+                                <div class="flex items-center border border-nexora-blush rounded-full">
+                                    <button onclick="changeQty(${idx}, -1)" class="px-2.5 py-0.5 text-xs font-bold">-</button>
+                                    <span class="text-xs font-semibold px-1.5">${c.qty}</span>
+                                    <button onclick="changeQty(${idx}, 1)" class="px-2.5 py-0.5 text-xs font-bold">+</button>
+                                </div>
+                                <span class="text-xs font-bold">₹${(c.product.price * c.qty).toLocaleString('en-IN')}</span>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            document.getElementById('bag-subtotal').textContent = `₹${subtotal.toLocaleString('en-IN')}`;
+            document.getElementById('bag-shipping').textContent = subtotal === 0 ? '₹0' : (shipping === 0 ? 'FREE' : `₹${shipping}`);
+            document.getElementById('bag-total').textContent = `₹${total.toLocaleString('en-IN')}`;
+            document.getElementById('checkout-pay-total').textContent = `₹${total.toLocaleString('en-IN')}`;
+        }
+
+        function openCart() {
+            document.getElementById('cart-backdrop').classList.remove('hidden');
+            document.getElementById('cart-panel').classList.remove('translate-x-full');
+        }
+
+        function closeCart() {
+            document.getElementById('cart-backdrop').classList.add('hidden');
+            document.getElementById('cart-panel').classList.add('translate-x-full');
+        }
+
+        function openCheckout() {
+            closeCart();
+            document.getElementById('checkout-form-box').classList.remove('hidden');
+            document.getElementById('checkout-done-box').classList.add('hidden');
+            document.getElementById('checkout-modal').classList.remove('hidden');
+        }
+
+        function closeCheckout() {
+            document.getElementById('checkout-modal').classList.add('hidden');
+        }
+
+        function submitOrder(e) {
+            e.preventDefault();
+            state.cart = [];
+            updateBagUI();
+            document.getElementById('checkout-form-box').classList.add('hidden');
+            document.getElementById('checkout-done-box').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function subscribeNewsletter(e) {
+            e.preventDefault();
+            e.target.reset();
+            showToast("Welcome to NEXORA! Use code VIBE15 at checkout.");
+        }
+
+        function showToast(msg) {
+            const box = document.getElementById('toast-container');
+            const el = document.createElement('div');
+            el.className = 'bg-[#1D191A] text-white text-xs font-medium px-4 py-3 rounded-full shadow-lg flex items-center gap-2 transition-all duration-300';
+            el.innerHTML = `<span class="w-2 h-2 rounded-full bg-nexora-rose"></span><span>${msg}</span>`;
+            box.appendChild(el);
+            setTimeout(() => {
+                el.style.opacity = '0';
+                setTimeout(() => el.remove(), 300);
+            }, 2600);
+        }
+    </script>
+</body>
+</html>
